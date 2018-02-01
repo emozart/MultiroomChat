@@ -17,5 +17,17 @@ io.on('connection', function(socket){
 
     socket.on('disconnect', function(){
         console.log('Usuário desconectou');
-    })
+    });
+
+    socket.on('msgParaServidor', function(dados){
+        socket.emit('msgParaCliente', {
+            apelido: dados.apelido,
+            mensagem: dados.mensagem
+        });
+
+        socket.broadcast.emit('msgParaCliente', {
+            apelido: dados.apelido,
+            mensagem: dados.mensagem
+        });
+    });
 });
